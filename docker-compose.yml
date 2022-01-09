@@ -1,0 +1,23 @@
+version: "3.7"
+
+services:
+  sonarqube:
+    image: sonarqube:8.9.6-community
+    container_name: sonarqube
+    hostname: sonarqube
+    restart: unless-stopped
+    ports:
+      - "${HTTP_PORT}:9000"
+    volumes:
+      - "./data/:/opt/sonarqube/data/"
+      - "./logs/:/opt/sonarqube/logs/"
+      - "./extensions/:/opt/sonarqube/extensions/"
+    networks:
+      - sonarqube_network
+      - jenkins_network
+
+networks:
+  sonarqube_network:
+    external: true
+  jenkins_network:
+    external: true
